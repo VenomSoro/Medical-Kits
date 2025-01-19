@@ -1,0 +1,15 @@
+{
+    "ModTitle": "Medical Kits",
+    "ModVersion": "1.0.1",
+    "ModAuthor": "VenomSoro",
+    "ContactInfo": "N/A",
+    "DFUnity_Version": "1.1.0",
+    "ModDescription": "Adds medical kits for an additional way of healing and using the medical skill.",
+    "GUID": "79126590-8f34-4d82-a054-37c2d0605278",
+    "Files": [
+        "Assets/Game/Mods/Medical Kits/Scripts/MedicalKitsItems.cs",
+        "Assets/Game/Mods/Medical Kits/Scripts/MedicalKitsMain.cs",
+        "Assets/Game/Mods/Medical Kits/Textures/2106_0-0.png",
+        "Assets/Game/Mods/Medical Kits/ItemTemplates.json"
+    ]
+}

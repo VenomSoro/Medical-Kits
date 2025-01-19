@@ -1,0 +1,22 @@
+[
+	{
+		"index": 2106,
+		"name": "Medical Kit",
+		"baseWeight": 2,
+		"hitPoints": 500,
+		"capacityOrTarget": 0,
+		"basePrice": 500,
+		"enchantmentPoints": 0,
+		"rarity": 8,
+		"variants": 0,
+		"drawOrderOrEffect": 0,
+		"isBluntWeapon": false,
+		"isLiquid": false,
+		"isOneHanded": false,
+		"isIngredient": false,
+		"worldTextureArchive": 2106,
+		"worldTextureRecord": 0,
+		"playerTextureArchive": 0,
+		"playerTextureRecord": 0
+	}
+]
