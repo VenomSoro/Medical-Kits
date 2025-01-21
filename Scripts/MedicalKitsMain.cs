@@ -7,12 +7,17 @@ using DaggerfallWorkshop.Game.Utility;
 using UnityEngine;
 using DaggerfallWorkshop.Game.Utility.ModSupport;
 using System;
+using DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings;
 
 namespace MedicalKitsMod
 {
     public class MedicalKitsMain : MonoBehaviour
     {
         private static Mod mod;
+
+        // Mod Settings
+        public static float medicalSkillHealthRestoredDivisor { get; set; }
+        public static float healthRestoredExperienceDivisor { get; set; }
 
         [Invoke(StateManager.StateTypes.Start, 0)]
         public static void Init(InitParams initParams)
@@ -22,11 +27,21 @@ namespace MedicalKitsMod
             var go = new GameObject(mod.Title);
             go.AddComponent<MedicalKitsMain>();
 
+            mod.LoadSettingsCallback = LoadSettings;
+
             mod.IsReady = true;
+        }
+
+        private static void LoadSettings(ModSettings settings, ModSettingsChange change)
+        {
+            medicalSkillHealthRestoredDivisor = settings.GetValue<float>("MedicalKitSettings", "MedicalSkillHealthRestoredDivisor");
+            healthRestoredExperienceDivisor = settings.GetValue<float>("MedicalKitSettings", "HealthRestoredExperienceDivisor");
         }
 
         private void Start()
         {
+            mod.LoadSettings();
+
             DaggerfallUnity.Instance.ItemHelper.RegisterCustomItem(MedicalKitItem.templateIndex, ItemGroups.None, typeof(MedicalKitItem));
 
             PlayerActivate.OnLootSpawned += MedicalKitsInStores_OnLootSpawned;

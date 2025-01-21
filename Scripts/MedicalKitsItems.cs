@@ -76,7 +76,7 @@ namespace MedicalKitsMod
             // The amount of health restored is a percentage of player max health. 10% is restored at minimum.
             // Intelligence has a small influence, the rest is determined by medical skill.
             // about 50% of the player's health will be restored around a medical skill of 75.
-            int healAmount = (int) Mathf.Round(((10 + intelligenceMod + (medicalSkill / 1.875f)) / 100f) * player.MaxHealth);
+            int healAmount = (int) Mathf.Round(((10 + intelligenceMod + (medicalSkill / MedicalKitsMain.medicalSkillHealthRestoredDivisor)) / 100f) * player.MaxHealth);
             //Debug.Log(healAmount + " healed by medical kit.");
 
             bool isConditionReduced = true;
@@ -88,7 +88,7 @@ namespace MedicalKitsMod
             // This means that as the medical skill increases and player health increases,
             // The exp gained will scale. Hopefully this will keep up with scaling requirements
             // as the medical skill can quickly become ridiculous even at 1.0x difficulty (500+ points).
-            short medicalExp = (short)Mathf.Round(10 + (healAmount / 8f));
+            short medicalExp = (short)Mathf.Round(10f + (healAmount / MedicalKitsMain.healthRestoredExperienceDivisor));
 
             // Check for additional bonuses due to having good medical skill.
             if (medicalSkill >= 50)
@@ -134,7 +134,10 @@ namespace MedicalKitsMod
                     // Once value is 0, remove the kit and message player.
                     // Value is the way to keep track of uses across saves.
                     DaggerfallUI.Instance.PopupMessage("The medical kit has been used completely");
-                    player.Items.RemoveItem(this);
+
+                    // Ensures the item is removed from all potential collections.
+                    // This includes player inventory, player wagon, and other item piles.
+                    collection.RemoveItem(this);
                 }
                 else
                 {
@@ -158,7 +161,15 @@ namespace MedicalKitsMod
             // Individuals with medium skill (59 to 30) will take 18 to 24 minutes.
             // Individuals with low skill (29 to 5) will take 24 to 29 minutes.
             // Agility and Speed have a small influence on time spent.
-            DaggerfallUnity.Instance.WorldTime.Now.RaiseTime(1200 * (1.5f - ((medicalSkill + agilityMod + speedMod) / 100f)));
+            float timeSpent = 1200 * (1.5f - ((medicalSkill + agilityMod + speedMod) / 100f));
+            if (timeSpent < 300)
+            {
+                // Ensures that if medical skill is magically enhanced beyond 100,
+                // the time spent will not become negative (minimum of 5 minutes).
+                timeSpent = 300;
+            }
+
+            DaggerfallUnity.Instance.WorldTime.Now.RaiseTime(timeSpent);
 
             return true;
         }

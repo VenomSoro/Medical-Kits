@@ -1,0 +1,31 @@
+{
+    "Version": "1.0.2",
+    "Sections": [
+        {
+            "Name": "MedicalKitSettings",
+            "Description": "Settings to adjust Medical Kits.",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Min": 1.0,
+                    "Max": 2.0,
+                    "Value": 1.8,
+                    "Name": "MedicalSkillHealthRestoredDivisor",
+                    "Description": "Changes how much health is restored due to the medical skill. Default : 1.8",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
+                },
+                {
+                    "Min": 1.0,
+                    "Max": 16.0,
+                    "Value": 8.0,
+                    "Name": "HealthRestoredExperienceDivisor",
+                    "Description": "Changes how much medical skill experience is gained from health restored. Default : 8",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
+                }
+            ],
+            "$version": "v1"
+        }
+    ]
+}
